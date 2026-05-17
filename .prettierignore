@@ -1,9 +1,0 @@
-node_modules
-dist
-build
-.env
-.env.local
-.env.*.local
-*.lock
-*.log
-.DS_Store
