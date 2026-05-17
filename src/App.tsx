@@ -19,10 +19,10 @@ function App() {
   };
 
   // Обробник вибору відповіді
-  const handleAnswerClick = (selectedOption: string) => {
+  const handleAnswerClick = (selectedOption: string | number) => {
     const currentQuestion = currentQuiz[currentQuestionIndex];
 
-    if (selectedOption === currentQuestion.options[currentQuestion.correctAnswer]) {
+    if (selectedOption === currentQuestion.correctAnswer) {
       setScore((prev) => prev + 1);
     }
 
