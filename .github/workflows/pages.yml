@@ -7,7 +7,7 @@ on:
       - master
 
 permissions:
-  contents: write # Надаємо право запису, щоб робот міг створити і оновити гілку gh-pages
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -23,15 +23,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: quiz-test-react-app
 
       - name: Build project
         run: npm run build
-        working-directory: quiz-test-react-app
 
-      # Ось цей крок автоматично створить гілку gh-pages і завантажить туди готовий сайт
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: quiz-test-react-app/dist # Вказуємо папку з готовим білдом
-          branch: gh-pages # Гілка куди деплоїти
+          folder: dist # Якщо використовуєш Vite, залишай dist. Якщо Create React App — зміни на build
+          branch: gh-pages
