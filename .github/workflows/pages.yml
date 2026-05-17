@@ -1,23 +1,16 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy to GH Pages
 
 on:
   push:
-    branches: ["master", "main"]
+    branches:
+      - main
+      - master
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  contents: write # Надаємо право запису, щоб робот міг створити і оновити гілку gh-pages
 
 jobs:
   build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -36,14 +29,9 @@ jobs:
         run: npm run build
         working-directory: quiz-test-react-app
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'quiz-test-react-app/dist'
-
+      # Ось цей крок автоматично створить гілку gh-pages і завантажить туди готовий сайт
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: quiz-test-react-app/dist # Вказуємо папку з готовим білдом
+          branch: gh-pages # Гілка куди деплоїти
