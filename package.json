@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://Misharkus.github.io/quiz-test-react-app",
   "scripts": {
     "start": "vite",
     "dev": "vite",
