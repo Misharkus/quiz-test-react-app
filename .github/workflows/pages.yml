@@ -1,0 +1,2 @@
+with:
+  path: "quiz-test-react-app/dist" # або 'quiz-test-react-app/build', залежно від того, Vite у тебе чи CRA
