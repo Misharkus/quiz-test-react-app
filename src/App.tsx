@@ -9,6 +9,7 @@ function App() {
   const [quizLength, setQuizLength] = useState(10); // дефолтна кількість тестів
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [uncorrectQuestions, setUncorrectQuestions] = useState<Question[]>([]);
 
   // Функція для старту тесту
   const startNewQuiz = (count: number) => {
@@ -21,6 +22,10 @@ function App() {
   // Обробник вибору відповіді
   const handleAnswerClick = (selectedOption: string | number) => {
     const currentQuestion = currentQuiz[currentQuestionIndex];
+
+    if (selectedOption !== currentQuestion.correctAnswer) {
+      setUncorrectQuestions((prev) => [...prev, currentQuestion]);
+    }
 
     if (selectedOption === currentQuestion.correctAnswer) {
       setScore((prev) => prev + 1);
@@ -55,6 +60,19 @@ function App() {
         <p>
           Твій результат: {score} з {currentQuiz.length}
         </p>
+        {uncorrectQuestions.length > 0 && (
+          <div className="uncorrect-questions">
+            <h3>Невірні питання:</h3>
+            <ul>
+              {uncorrectQuestions.map((question) => (
+                <li key={question.id}>
+                  <strong>{question.question}</strong>
+                  <p>Правильна відповідь: {question.correctAnswer}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <button onClick={() => setCurrentQuiz([])}>Пройти ще раз</button>
       </div>
     );
