@@ -1,7 +1,7 @@
 import type { Question } from "../types/Question";
 
 export function generateQuiz(allQuestions: Question[], count: number): Question[] {
-  if (count >= allQuestions.length) {
+  if (count > allQuestions.length) {
     return allQuestions;
   }
 
