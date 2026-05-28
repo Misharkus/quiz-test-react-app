@@ -10,17 +10,47 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [uncorrectQuestions, setUncorrectQuestions] = useState<Question[]>([]);
+  const [isRandom, setIsRandom] = useState(true);
+  const [filter, setFilter] = useState('all');
+
+  const handleReset = () => {
+    setCurrentQuiz([]);
+    setCurrentQuestionIndex(0);
+    setUncorrectQuestions([]);
+    setScore(0);
+  }
+
+  const getFilteredQuestions = (questionsData) => {
+    let filteredQuestions = [...questionsData];
+
+    filteredQuestions = filteredQuestions.filter(question => {
+      switch(filter) {
+        case 'easy': 
+          return question.difficulty === 1;
+        case 'medium': 
+          return question.difficulty === 2;
+        case 'hard': 
+          return question.difficulty === 3;
+        default: 
+          return true;
+      }
+    })
+
+    return filteredQuestions;
+  }
+
+  const preperedQuestions = getFilteredQuestions(questionsData);
 
   // Функція для старту тесту
   const startNewQuiz = (count: number) => {
-    const questionsForSession = generateQuiz(questionsData as Question[], count);
+    const questionsForSession = generateQuiz(preperedQuestions, count, isRandom);
     setCurrentQuiz(questionsForSession);
     setCurrentQuestionIndex(0);
     setScore(0);
   };
 
   // Обробник вибору відповіді
-  const handleAnswerClick = (selectedOption: string | number) => {
+  const handleAnswerClick = (selectedOption: string) => {
     const currentQuestion = currentQuiz[currentQuestionIndex];
 
     if (selectedOption !== currentQuestion.correctAnswer) {
@@ -46,7 +76,21 @@ function App() {
           <option value={100}>100 питань</option>
           <option value={150}>150 питань</option>
           <option value={200}>200 питань</option>
+          <option value={600}>600 питань</option>
         </select>
+        <h2>Обери рівень складності питань:</h2>
+        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <option value={'all'}>Всі питання</option>
+          <option value={'easy'}>1 рівень</option>
+          <option value={'medium'}>2 рівень</option>
+          <option value={'hard'}>3 рівень</option>
+        </select>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '25px', marginBottom: '25px' }}>
+          <h2 style={{ margin: '0', marginRight: '10px' }}>Рандом {isRandom ? "On" : "Off"}</h2>
+          <button className="random-button" onClick={() => setIsRandom(prev => !prev)}>
+            {isRandom ? "Вимкнути" : "Увімкнути"}
+          </button>
+        </div>
         <button onClick={() => startNewQuiz(quizLength)}>Почати тест</button>
       </div>
     );
@@ -95,6 +139,7 @@ function App() {
           </div>
         ))}
       </div>
+      <button className="reset-button" onClick={handleReset}>Повернутися у меню вибору тесту</button>
     </div>
   );
 }

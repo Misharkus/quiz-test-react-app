@@ -2,5 +2,6 @@ export type Question = {
   id: number;
   question: string;
   options: string[];
-  correctAnswer: string | number; // Need to delete number after updating questions.json
+  correctAnswer: string; // Need to delete number after updating questions.json
+  difficulty: number; // 1 - easy, 2 - medium, 3 - hard
 };
