@@ -20,7 +20,7 @@ function App() {
     setScore(0);
   }
 
-  const getFilteredQuestions = (questionsData) => {
+  const getFilteredQuestions = (questionsData: Question[]) => {
     let filteredQuestions = [...questionsData];
 
     filteredQuestions = filteredQuestions.filter(question => {
@@ -39,7 +39,7 @@ function App() {
     return filteredQuestions;
   }
 
-  const preperedQuestions = getFilteredQuestions(questionsData);
+  const preperedQuestions = getFilteredQuestions(questionsData as Question[]);
 
   // Функція для старту тесту
   const startNewQuiz = (count: number) => {
