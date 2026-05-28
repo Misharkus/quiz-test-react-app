@@ -9,6 +9,6 @@ export function generateQuiz(
     return allQuestions.slice(0, count);
   }
 
-  const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
+  const shuffled = [...allQuestions];
+  return shuffled.slice(0, count).sort(() => Math.random() - 0.5);
 }
