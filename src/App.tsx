@@ -47,6 +47,7 @@ function App() {
     setCurrentQuiz(questionsForSession);
     setCurrentQuestionIndex(0);
     setScore(0);
+    setUncorrectQuestions([]);
   };
 
   // Обробник вибору відповіді
@@ -62,7 +63,10 @@ function App() {
     }
 
     // Перехід до наступного питання
-    setCurrentQuestionIndex((prev) => prev + 1);
+    const nextIndex = currentQuestionIndex + 1;
+    
+    // If test is complete, show celebration image for 1 second
+      setCurrentQuestionIndex(nextIndex);
   };
 
   // 1. Екран вибору кількості питань (якщо тест ще не запущено)
@@ -98,6 +102,7 @@ function App() {
 
   // 2. Екран результатів (якщо пройшли всі вибрані питання)
   if (currentQuestionIndex >= currentQuiz.length) {
+
     return (
       <div className="quiz-results">
         <h2>Тест завершено!</h2>
