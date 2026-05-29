@@ -21,6 +21,18 @@ body {
   padding: 20px;
 }
 
+.success-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.success-img {
+  width: 340px;
+  height: 280px;
+}
+
 /* Quiz Setup Screen */
 .quiz-setup {
   background: white;

@@ -109,6 +109,11 @@ function App() {
         <p>
           Твій результат: {score} з {currentQuiz.length}
         </p>
+        {uncorrectQuestions.length === 0 && (
+          <div className="success-img-container">
+            <img src="images/perfect.jpg" alt="100%" className="success-img"/>
+          </div>
+        )}
         {uncorrectQuestions.length > 0 && (
           <div className="uncorrect-questions">
             <h3>Невірні питання:</h3>
